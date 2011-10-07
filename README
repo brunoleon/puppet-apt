@@ -1,0 +1,26 @@
+Apt
+=======
+
+This module configures Apt.
+It has been developed under Ubuntu 10.04.
+
+Dependencies
+------------
+
+* Hiera
+
+Contact
+-------
+
+Bruno Leon <bruno.leon@savoirfairelinux.com>
+
+License
+-------
+
+This software is distributed under the GNU General Public License
+version 2 or any later version. See the LICENSE file for details.
+
+Copyright
+---------
+
+Copyright (C) 2011 Savoir-faire Linux Inc.

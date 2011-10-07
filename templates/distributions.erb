@@ -1,0 +1,9 @@
+<% repository_distversions.each do |distrib| %>
+Origin: <%= client %>
+Label: <%= client %>
+Codename: <%= distrib %>
+Architectures: i386 amd64
+Components: main
+Description: This is the <%= client %> packages repository. It contains packages for multiple purposes, most of the time to get updated packages from standard distribution.
+
+<% end %>

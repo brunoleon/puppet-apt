@@ -1,0 +1,124 @@
+# = Class: apt::backports
+#
+# Include ubuntu backports to our repository list
+class apt::backports inherits apt::main {
+	apt::repo { "backports": url => $apt_url, repo_suffix => 'backports' }
+}
+
+# = Class: apt::medibuntu
+#
+# Include medibuntu to our repository list
+class apt::medibuntu inherits apt {
+	apt::repo { "medibuntu": url => "http://packages.medibuntu.org", section => 'free non-free' }
+	apt::key { "medibuntu": keyid  => "0C5A2783", ensure => present, }
+}
+
+# = Class: apt::virtualbox
+#
+# Include ubuntu virtualbox to our repository list
+class apt::virtualbox inherits apt {
+	apt::repo { "virtualbox": url  => "http://download.virtualbox.org/virtualbox/debian", section => 'contrib non-free' }
+	apt::key { "virtualbox": keyid  => "6DFBCBAE", ensure => present }
+}
+
+# = Class: apt::reductivelabs
+#
+# Include Reductive Labs to our repository list
+class apt::puppetlabs inherits apt {
+	apt::repo { 'puppetlabs': url  => "http://apt.puppetlabs.com/ubuntu", section => 'main' }
+	apt::key { 'puppetlabs': keyid  => "4BD6EC30", ensure => present }
+}
+
+# = Class: apt::ppa::firefox::stable
+#
+# Include firefox stable ppa
+class apt::ppa::firefox::stable inherits apt {
+	apt::repo::ppa { "firefoxstable": repo  => "mozillateam/firefox-stable" }
+}
+
+# = Class: apt::ppa::thunderbird::stable
+#
+# Include thunderbird stable ppa
+class apt::ppa::thunderbird::stable inherits apt {
+	apt::repo::ppa { "thunderbirdstable": repo  => "mozillateam/thunderbird-stable" }
+}
+
+# = Class: apt::ppa::winhq
+#
+# Include winehq ppa - These are dev release and should be considered as such
+class apt::ppa::winehq {
+	apt::repo::ppa { "winehq" : repo => 'ubuntu-wine/ppa'}
+}
+
+# = Class: apt::kdenlive
+#
+# Include kdenlive ppa to our repository list
+class apt::ppa::kdenlive {
+	apt::repo::ppa { "kdenlive" : repo => 'sunab/sunab2'}
+}
+
+# = Class: apt::alestic
+#
+# Include alestic ppa to our repository list
+class apt::ppa::alestic {
+        apt::repo::ppa { "alestic" : repo => 'alestic'}
+}
+
+# = Class: apt::kubuntu_ppa
+#
+# Include kubuntu ppa to our repository list.
+# Mainly used to get an up to date KDE version (stable)
+class apt::ppa::kubuntu_ppa {
+	apt::repo::ppa { "kubuntu-ppa" : repo => 'kubuntu-ppa/ppa'}
+}
+
+# = Class: apt::kubuntu_ppa_backports
+#
+# Include kubuntu ppa backport to our repository list.
+# Was used for Amarok 2.3.1 initialy
+class apt::ppa::kubuntu_ppa_backports {
+	apt::repo::ppa { "kubuntu-ppa-backports" : repo => 'kubuntu-ppa/backports'}
+}
+
+# = Class: apt::xbmc
+#
+# Include XBMC Team ppa
+class apt::ppa::xbmc {
+	apt::repo::ppa { "xbmc-ppa" : repo => 'team-xbmc/ppa'}
+}
+
+# = Class: apt::unyonsys
+#
+# Include ubuntu backports to our repository list
+class apt::unyonsys inherits apt::main {
+	apt::repo { "unyonsys": url => 'http://repository.unyonsys.com', section => 'main' }
+}
+
+# = Class: apt::gosa
+#
+# Include gosa repository
+class apt::gosa inherits apt::main {
+	apt::repo { "gosa": url => 'http://oss.gonicus.de/pub/gosa/debian-lenny/', append_lsbdistcodename => false, section => './' }
+}
+
+# = Class: apt::sogo
+#
+# Include sogo repository
+class apt::sogo inherits apt::main {
+	apt::repo { "sogo": url => 'http://inverse.ca/ubuntu', section => 'main' }
+}
+
+# = Class: apt::sfl
+#
+# Include sfl repository
+class apt::sfl inherits apt {
+	apt::repo { "sfl": url => 'http://repos.savoirfairelinux.net', section => 'main' }
+}
+
+
+
+# Dell OMreport, cf http://linux.dell.com/repo/community/deb/latest/
+class apt::dellom inherits apt {
+    apt::repo { "dellom": url => "http://linux.dell.com/repo/community/deb/OMSA_6.3/", append_lsbdistcodename=> false, section => '/' }
+}
+

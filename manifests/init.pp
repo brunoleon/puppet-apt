@@ -74,7 +74,8 @@ class apt (
     $apt_url = $apt_local_mirror
   }
   elsif $ec2_instance_id != '' {
-    $apt_url = "http://${ec2_placement_availability_zone}.archive.ubuntu.com/ubuntu/"
+    $base_url = chop($ec2_placement_availability_zone)
+    $apt_url = "http://${base_url}.ec2.archive.ubuntu.com/ubuntu/"
   }
   else {
     case $::lsbdistid {

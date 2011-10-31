@@ -57,16 +57,16 @@ class apt (
   apt::config { 'apt_allow_unauthenticated':
     config_element  => 'APT::Get::AllowUnauthenticated',
     value           => $apt_allow_unauthenticated ? {
-      true    => "True",
-      default => "False",
+      true    => '"True"',
+      default => '"False"',
     },
   }
 
   apt::config { 'apt_force_yes':
     config_element  => 'APT::Get::force-yes',
     value           => $apt_force_yes ? {
-      true    => "True",
-      default => "False",
+      true    => '"True"',
+      default => '"False"',
     },
   }
 

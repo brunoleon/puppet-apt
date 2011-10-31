@@ -13,3 +13,12 @@ class apt::repository::unyonsys::puppet (
     url  => "http://repository.unyonsys.com", section => 'main', forced_lsbdistcodename => 'puppet'
   }
 }
+
+
+class apt::repository::unyonsys::crossrelease (
+  $stage = pre
+  ) {
+  apt::repo { 'unyonsys_crossrelease':
+    url  => "http://repository.unyonsys.com", section => 'main', forced_lsbdistcodename => 'crossrelease'
+  }
+}

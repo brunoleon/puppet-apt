@@ -18,8 +18,8 @@ class apt (
   $apt_allow_unauthenticated  = false,
   $apt_enable_proposed        = false,
   $aptGetSrc                  = false,
-  $apt_local_mirror           = false),
-  $server_region              = 'ca')
+  $apt_local_mirror           = false,
+  $server_region              = 'ca'
   ) {
   
   include apt::variables

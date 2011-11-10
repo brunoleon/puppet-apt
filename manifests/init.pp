@@ -10,16 +10,16 @@
 #
 # === Parameters:
 #
-# $my_region:: The region we are in. This will result in automatic selection of geographical best source for downloads
-# $apt_local_mirror:: The url to the local mirror that might be setup. This OVERRIDES the $my_region value.
+# $server_region:: The region we are in. This will result in automatic selection of geographical best source for downloads
+# $apt_local_mirror:: The url to the local mirror that might be setup. This OVERRIDES the $server_region value.
 class apt (
   $stage                      = pre,
   $apt_force_yes              = false,
   $apt_allow_unauthenticated  = false,
   $apt_enable_proposed        = false,
   $aptGetSrc                  = false,
-  $apt_local_mirror           = hiera('apt_local_mirror', false),
-  $my_region                  = hiera('my_region', 'ca')
+  $apt_local_mirror           = false),
+  $server_region              = 'ca')
   ) {
   
   include apt::variables
@@ -79,12 +79,12 @@ class apt (
   }
   else {
     case $::lsbdistid {
-      Debian:	{	$apt_url = $my_region ? {
+      Debian:	{	$apt_url = $server_region ? {
           'ca'    => 'http://debian.savoirfairelinux.net/debian',
           default => 'http://ftp.fr.debian.org/debian/',
         }
       }
-      Ubuntu: {	$apt_url = $my_region ? {
+      Ubuntu: {	$apt_url = $server_region ? {
           'ca'    => 'http://ubuntu.mirror.iweb.ca/',
           default	=> 'http://eu.archive.ubuntu.com/ubuntu/',
         }

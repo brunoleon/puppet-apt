@@ -7,5 +7,5 @@ class apt::repository::ppa::kubuntu::ppa (
 class apt::repository::ppa::kubuntu::backports (
   $stage = pre
   ) {
-  apt::ppa { 'ppa_kubuntu-backports': repo => 'kubuntu-ppa/backports', key => '8AC93F7A'}
+  apt::ppa { 'ppa_kubuntu-backports': repo => 'ppa:kubuntu-ppa/backports', key => '8AC93F7A'}
 }

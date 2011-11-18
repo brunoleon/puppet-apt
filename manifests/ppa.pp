@@ -7,7 +7,7 @@ define apt::ppa(
   $repo,
   $key  = false
   ) {
-  $reponame = regsubst($repo,"/","-")
+  $reponame = regsubst( regsubst($repo,"/","-"), 'ppa:', '' )
   exec { "add-apt-repository_${repo}":
       command => "add-apt-repository ppa:${repo}",
       unless  => "file /etc/apt/sources.list.d/${reponame}-${::lsbdistcodename}.list",

@@ -9,7 +9,7 @@ define apt::ppa(
   ) {
   $reponame = regsubst( regsubst($repo,"/","-"), 'ppa:', '' )
   exec { "add-apt-repository_${repo}":
-      command => "add-apt-repository ppa:${repo}",
+      command => "add-apt-repository ${repo}",
       unless  => "file /etc/apt/sources.list.d/${reponame}-${::lsbdistcodename}.list",
       notify  => Exec['aptitude-update'],
       require => Package['python-software-properties'],

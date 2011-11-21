@@ -25,7 +25,7 @@ class apt (
   include apt::variables
   
   #Provides add-apt-repository command
-  package { 'python-software-properties', 'aptitude':
+  package { [ 'python-software-properties', 'aptitude' ]:
     ensure  => present
   }
 

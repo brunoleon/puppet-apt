@@ -3,6 +3,6 @@ define apt::config ( $config_element, $value, $order = '99' ) {
   file { "${apt::variables::apt_conf_dir}/${order}${name}":
     ensure  => file,
     content => "${config_element} ${value};",
-    notify  => Exec ['aptitude-update'],
+    notify  => Exec ['apt-get update'],
   }
 }

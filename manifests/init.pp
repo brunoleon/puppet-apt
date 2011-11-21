@@ -2,7 +2,7 @@
 
 # = Class: apt
 #
-# * Provide aptitude-update exec
+# * Provide apt-get update exec
 # * Setup cron to update apt every 4h, at 10th minute
 # * Set proper right on sources.list
 # * Allow use of unauthenticated packages (This might change when keyserver will function properly)
@@ -25,12 +25,12 @@ class apt (
   include apt::variables
   
   #Provides add-apt-repository command
-  package { 'python-software-properties':
+  package { 'python-software-properties', 'aptitude':
     ensure  => present
   }
 
-  exec { 'aptitude-update':
-    command     => 'aptitude update',
+  exec { 'apt-get update':
+    command     => 'apt-get update',
     refreshonly => true,
   }
 
@@ -94,13 +94,13 @@ class apt (
   }
 
   #The require here only ensures that the package installation does not happen between when sources.list is changed
-  #and between when aptitude-update is refreshed
+  #and between when apt-get update is refreshed
   file { 'sources.list':
     path      => "${apt::variables::apt_dir}/sources.list",
     ensure    => file,
     mode      => 0644,
     content   => template('apt/sources.list.erb'),
-    notify    => Exec ['aptitude-update'],
+    notify    => Exec ['apt-get update'],
     require   => Package['python-software-properties'],
   }
 }

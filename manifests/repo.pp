@@ -46,7 +46,7 @@ define apt::repo(
       'None'  => "puppet:///modules/apt/${source}",
       default => undef
     },
-    notify   => Exec['aptitude-update'],
+    notify   => Exec['apt-get update'],
   }
 
   file { "${apt_sources_dir}/${name}.list" :
@@ -55,7 +55,7 @@ define apt::repo(
         disabled => absent,
       },
       target  => "${apt_sources_dir}/puppet/${name}.list",
-      notify  => Exec['aptitude-update']
+      notify  => Exec['apt-get update']
   }
   
   if $keyid {

@@ -25,19 +25,19 @@ define apt::repo(
   $aptGetSrc              = false,
   $keyid                  = false
   ) {
-  
+
   include apt::variables
   $apt_dir          = $apt::variables::apt_dir
   $apt_sources_dir  = $apt::variables::apt_sources_dir
   $apt_conf_dir     = $apt::variables::apt_conf_dir
   $apt_section      = $apt::variables::apt_section
-  
+
   file { "${apt_sources_dir}/puppet/${name}.list":
     ensure  => $ensure ? {
       enabled  => file,
       disabled => absent,
     },
-    mode     => 0644,
+    mode     => '0644',
     content  => $source ? {
       'None'  => template('apt/standardRepo.list.erb'),
       default => undef
@@ -57,7 +57,7 @@ define apt::repo(
       target  => "${apt_sources_dir}/puppet/${name}.list",
       notify  => Exec['apt-get update']
   }
-  
+
   if $keyid {
     #Only found workaround to be able to have the same keyid for different repositories
     if ! defined(Exec["Import $keyid to apt keystore"]) {

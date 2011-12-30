@@ -21,9 +21,9 @@ class apt (
   $apt_local_mirror           = false,
   $server_region              = 'ca'
   ) {
-  
+
   include apt::variables
-  
+
   #Provides add-apt-repository command
   package { [ 'python-software-properties', 'aptitude' ]:
     ensure  => present
@@ -36,12 +36,12 @@ class apt (
 
   file { $apt::variables::apt_sources_dir:
     ensure    => directory,
-    mode      => 0755,
+    mode      => '0755',
   }
 
   file { "${apt::variables::apt_sources_dir}/puppet":
     ensure    => directory,
-    mode      => 0755,
+    mode      => '0755',
     purge     => true,
     recurse   => true,
     force     => true,
@@ -50,10 +50,10 @@ class apt (
 
   file { "${apt::variables::apt_sources_dir}/README":
     ensure    => file,
-    mode    	=> 0444,
+    mode    	=> '0444',
     content   => 'Add your repositories here. Puppet will add its own in the puppet subfolder.',
   }
-  
+
   apt::config { 'apt_allow_unauthenticated':
     config_element  => 'APT::Get::AllowUnauthenticated',
     value           => $apt_allow_unauthenticated ? {
@@ -98,7 +98,7 @@ class apt (
   file { 'sources.list':
     path      => "${apt::variables::apt_dir}/sources.list",
     ensure    => file,
-    mode      => 0644,
+    mode      => '0644',
     content   => template('apt/sources.list.erb'),
     notify    => Exec ['apt-get update'],
     require   => Package['python-software-properties'],

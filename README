@@ -1,26 +1,68 @@
-Apt
-=======
+= Requirements
 
-This module configures Apt.
-It has been developed under Ubuntu 10.04.
+- None
 
-Dependencies
-------------
+= Overview
 
-* Hiera
+This modules has 3 functionalities related to repos:
+- configure client (APT) repository with the apt::* (especially apt::repo and apt::key)
+- use pre-defined repositories or ppa with apt::repository::[ppa::]*
+- create a custom server repository with the apt::server::*
 
-Contact
--------
+== APT repository declaration
+This module handles APT related settings:
+- sources.list based on $my_region
+- additionnal repositories declaration
+- repositories GPG keys
 
-Bruno Leon <bruno.leon@savoirfairelinux.com>
+A list of predefined 'ready for inclusion' repositories are in the repository subfolder, use them as examples.
 
-License
--------
+Apart from the default sources.list file, repositories are created in /etc/apt/sources.list.d/puppet.
+A symlink pointing to them is also created, because apt does not allow to include anything else than sources.list.d.
 
-This software is distributed under the GNU General Public License
-version 2 or any later version. See the LICENSE file for details.
+===Usage Example
 
-Copyright
----------
+# normal usage, puppet will manage sources.list with your region, without deb-src
+  class { "apt":
+    my_region => "ca",
+  }
 
-Copyright (C) 2011 Savoir-faire Linux Inc.
+# define a specific local apt mirror for ubuntu with deb-src inclusion
+  class { "apt":
+    aptGetSrc => true,
+    apt_local_mirror => "http://192.168.1.1/ubuntu",
+  }
+
+# Include medibuntu to our repository list
+
+  class apt::medibuntu inherits apt {
+	apt::repo { "medibuntu": url => "http://packages.medibuntu.org", section => 'free non-free' }
+	apt::key { "medibuntu": keyid  => "0C5A2783", ensure => present, }
+  }
+  include apt::medibuntu
+
+# Include firefox stable ppa
+  class apt::ppa::firefox::stable inherits apt {
+	apt::repo::ppa { "firefoxstable": repo  => "mozillateam/firefox-stable" }
+  }
+  include apt::ppa::firefox::stable
+
+==Local Repositories Creation
+  
+  If you want to create your own repositories to provide additional deb files:
+
+  include apt::server::install
+  # will be installed in /var/www/repositories/puppet
+  apt::server { 'puppet': repobase => '/var/www/repositories', distversions => ['hardy','lucid'] }
+  apt::server { 'rsyslog': distversions => ['hardy'] }
+  apt::server { 'ossec': distversions => ['hardy','lucid','maverick'] }
+  
+  Afterwards, you can push your own deb files with:
+    #reprepro -Vb $location codename .deb-filename
+
+= License
+
+ Copyright (C) 2010 Savoir-faire Linux
+ Modified by Stéphane Duchesneau <stephane.duchesneau@savoirfairelinux.com>
+ Author Bruno Léon <bruno.leon@savoirfairelinux.com>
+ Licence: GPL v2

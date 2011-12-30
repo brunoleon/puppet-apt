@@ -27,12 +27,8 @@ define apt::repo(
   ) {
 
   include apt::variables
-  $apt_dir          = $apt::variables::apt_dir
-  $apt_sources_dir  = $apt::variables::apt_sources_dir
-  $apt_conf_dir     = $apt::variables::apt_conf_dir
-  $apt_section      = $apt::variables::apt_section
 
-  file { "${apt_sources_dir}/puppet/${name}.list":
+  file { "${apt::variables::apt_sources_dir}/puppet/${name}.list":
     ensure  => $ensure ? {
       enabled  => file,
       disabled => absent,
@@ -46,16 +42,16 @@ define apt::repo(
       'None'  => "puppet:///modules/apt/${source}",
       default => undef
     },
-    notify   => Exec['aptitude-update'],
+    notify   => Exec['apt-get update'],
   }
 
-  file { "${apt_sources_dir}/${name}.list" :
-      ensure  => $ensure ? {
-        enabled  => link,
-        disabled => absent,
-      },
-      target  => "${apt_sources_dir}/puppet/${name}.list",
-      notify  => Exec['aptitude-update']
+  file { "${apt::variables::apt_sources_dir}/${name}.list" :
+    ensure  => $ensure ? {
+      enabled  => link,
+      disabled => absent,
+    },
+    target  => "${apt::variables::apt_sources_dir}/puppet/${name}.list",
+    notify  => Exec['apt-get update']
   }
 
   if $keyid {
@@ -69,3 +65,4 @@ define apt::repo(
     realize Apt::Key[$name]
   }
 }
+

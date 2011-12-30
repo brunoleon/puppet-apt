@@ -9,24 +9,24 @@ define apt::key(
   $keyid,
   $ensure         = present,
   $gpg_key_server = 'keys.gnupg.net'
-  ) {
+) {
   case $ensure {
     present: {
       exec { "Import ${name} ${keyid} to apt keystore":
-        path        => "/bin:/usr/bin",
+        path        => '/bin:/usr/bin',
         command     => "gpg --keyserver ${gpg_key_server} --keyserver-options timeout=10 --recv-keys $keyid && gpg --export --armor $keyid | apt-key add -",
-        user        => "root",
-        group       => "root",
+        user        => 'root',
+        group       => 'root',
         unless      => "apt-key list | grep $keyid",
         logoutput   => on_failure,
       }
     }
     absent:  {
       exec { "Remove $keyid from apt keystore":
-        path    => "/bin:/usr/bin",
+        path    => '/bin:/usr/bin',
         command => "apt-key del $keyid",
-        user    => "root",
-        group   => "root",
+        user    => 'root',
+        group   => 'root',
         onlyif  => "apt-key list | grep $keyid",
       }
     }

@@ -3,4 +3,3 @@ class apt::server::install {
     ensure => present
   }
 }
-

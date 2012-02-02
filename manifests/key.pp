@@ -8,7 +8,7 @@
 define apt::key(
   $keyid,
   $ensure         = present,
-  $gpg_key_server = 'keys.gnupg.net'
+  $gpg_key_server = 'hkp://keys.gnupg.net:80'
 ) {
   case $ensure {
     present: {

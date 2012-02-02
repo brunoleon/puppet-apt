@@ -17,7 +17,9 @@ define apt::ppa(
   if $key {
     #Sometimes apt-add-repository fails to get the key
     apt::key { $repo:
-      keyid => $key }
+      keyid           => $key,
+      gpg_key_server  => 'hkp://keyserver.ubuntu.com:80'
+      }
   }
 }
 

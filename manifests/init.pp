@@ -24,7 +24,8 @@ class apt (
 
   #Provides add-apt-repository command
   package { [ 'python-software-properties', 'aptitude' ]:
-    ensure  => present
+    ensure  => present,
+    before  => File ['sources.list'],
   }
 
   exec { 'apt-get update':

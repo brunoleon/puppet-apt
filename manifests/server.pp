@@ -28,6 +28,12 @@ define apt::server (
     if ! $repobaseurl {
       fail( 'You must provide repobaseurl when using apache_integration.' )
     }
+    if $apache2::my_apache2_hierarchical_organisation {
+      if $apache2::my_apache2_separate_clients and ! $client {
+        fail( 'You must provide the $client when Apache is configured for per client separation.')
+      }
+    }
+
     Apache2::Website[ $repobaseurl ] -> Apt::Server[ $name ]
 
     $confname    = inline_template('<%= repobaseurl.split(".")[0] %>')

@@ -18,6 +18,6 @@ class apt::repository::unyonsys::gosa (
   $stage = pre
 ) {
   apt::repo { 'unyonsys_gosa':
-    url  => "http://repository.unyonsys.com/gosa", section => 'main'
+    url  => "http://repository.unyonsys.com/gosarepo", section => 'main'
   }
 }

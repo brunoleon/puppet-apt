@@ -14,7 +14,7 @@ class apt::repository::unyonsys::libguestfs (
   }
 }
 
-class apt::repository::unyonsys::libguestfs (
+class apt::repository::unyonsys::gosa (
   $stage = pre
 ) {
   apt::repo { 'unyonsys_gosa':

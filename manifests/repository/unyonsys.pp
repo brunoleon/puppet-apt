@@ -13,3 +13,11 @@ class apt::repository::unyonsys::libguestfs (
     url  => "http://repository.unyonsys.com/libguestfs", section => 'main'
   }
 }
+
+class apt::repository::unyonsys::libguestfs (
+  $stage = pre
+) {
+  apt::repo { 'unyonsys_gosa':
+    url  => "http://repository.unyonsys.com/gosa", section => 'main'
+  }
+}

@@ -21,3 +21,11 @@ class apt::repository::unyonsys::gosa (
     url  => "http://repository.unyonsys.com/gosarepo", section => 'main'
   }
 }
+
+class apt::repository::unyonsys::bacula (
+  $stage = pre
+) {
+  apt::repo { 'unyonsys_bacula':
+    url  => "http://repository.unyonsys.com/bacula", section => 'main'
+  }
+}

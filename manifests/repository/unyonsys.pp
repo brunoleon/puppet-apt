@@ -29,3 +29,20 @@ class apt::repository::unyonsys::bacula (
     url  => "http://repository.unyonsys.com/bacula", section => 'main'
   }
 }
+
+class apt::repository::unyonsys::galera (
+  $stage = pre
+) {
+  apt::repo { 'unyonsys_galera':
+    url  => "http://repository.unyonsys.com/galera", section => 'main'
+  }
+}
+
+class apt::repository::unyonsys::gluster (
+  $stage = pre
+) {
+  apt::repo { 'unyonsys_gluster':
+    url  => "http://repository.unyonsys.com/gluster", section => 'main'
+  }
+}
+

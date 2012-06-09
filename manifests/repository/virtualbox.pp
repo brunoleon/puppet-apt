@@ -9,7 +9,7 @@ class apt::repository::virtualbox (
     section => 'contrib non-free'
   }
 	apt::key { 'virtualbox':
-    keyid  => '6DFBCBAE',
+    keyid  => '98AB5139',
     ensure => present
   }
 }

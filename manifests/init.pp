@@ -17,6 +17,8 @@ class apt (
   $apt_enable_proposed        = false,
   $aptGetSrc                  = false,
   $apt_local_mirror           = false,
+  $apt_install_recommends     = false,
+  $apt_install_suggests       = false,
   $server_region              = 'ca'
 ) {
 
@@ -60,10 +62,23 @@ class apt (
       default => '"False"',
     },
   }
-
   apt::config { 'apt_force_yes':
     config_element  => 'APT::Get::force-yes',
     value           => $apt_force_yes ? {
+      true    => '"True"',
+      default => '"False"',
+    },
+  }
+  apt::config { 'apt_install_recommends':
+    config_element  => 'APT::Install-Recommends',
+    value           => $apt_install_recommends ? {
+      true    => '"True"',
+      default => '"False"',
+    },
+  }
+  apt::config { 'apt_install_suggests':
+    config_element  => 'APT::Install-Suggests',
+    value           => $apt_install_suggests ? {
       true    => '"True"',
       default => '"False"',
     },

@@ -13,12 +13,13 @@ define apt::key(
   case $ensure {
     present: {
       exec { "Import ${name} ${keyid} to apt keystore":
-        path        => '/bin:/usr/bin',
-        command     => "gpg --keyserver ${gpg_key_server} --keyserver-options timeout=10 --recv-keys $keyid && gpg --export --armor $keyid | apt-key add -",
-        user        => 'root',
-        group       => 'root',
-        unless      => "apt-key list | grep $keyid",
-        logoutput   => on_failure,
+        path      => '/bin:/usr/bin',
+        command   => "gpg --keyserver ${gpg_key_server} --keyserver-options timeout=10 --recv-keys $keyid && gpg --export --armor $keyid | apt-key add -",
+        user      => 'root',
+        group     => 'root',
+        unless    => "apt-key list | grep $keyid",
+        tries     => '3',
+        logoutput => on_failure,
       }
     }
     absent:  {

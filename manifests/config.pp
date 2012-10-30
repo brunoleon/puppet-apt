@@ -6,7 +6,7 @@ define apt::config (
 
   include apt::variables
 
-  file { "${apt::variables::apt_conf_dir}/${order}${name}":
+  file { "${apt::variables::conf_dir}/${order}${name}":
     ensure  => file,
     content => "${config_element} ${value};",
     notify  => Exec ['apt-get update'],

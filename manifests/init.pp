@@ -9,17 +9,17 @@
 # === Parameters:
 #
 # $server_region:: The region we are in. This will result in automatic selection of geographical best source for downloads
-# $apt_local_mirror:: The url to the local mirror that might be setup. This OVERRIDES the $my_region value.
+# $local_mirror:: The url to the local mirror that might be setup. This OVERRIDES the $my_region value.
 class apt (
-  $stage                      = pre,
-  $apt_force_yes              = false,
-  $apt_allow_unauthenticated  = false,
-  $apt_enable_proposed        = false,
-  $aptGetSrc                  = false,
-  $apt_local_mirror           = false,
-  $apt_install_recommends     = false,
-  $apt_install_suggests       = false,
-  $server_region              = 'ca'
+  $stage                  = pre,
+  $force_yes              = false,
+  $allow_unauthenticated  = false,
+  $enable_proposed        = false,
+  $getsrc                 = false,
+  $local_mirror           = false,
+  $install_recommends     = false,
+  $install_suggests       = false,
+  $server_region          = 'ca'
 ) {
 
   include apt::variables
@@ -35,12 +35,12 @@ class apt (
     refreshonly => true,
   }
 
-  file { $apt::variables::apt_sources_dir:
+  file { $apt::variables::sources_dir:
     ensure    => directory,
     mode      => '0755',
   }
 
-  file { "${apt::variables::apt_sources_dir}/puppet":
+  file { "${apt::variables::sources_dir}/puppet":
     ensure    => directory,
     mode      => '0755',
     purge     => true,
@@ -49,61 +49,55 @@ class apt (
     ignore    => [ 'README', "manual_*"],
   }
 
-  file { "${apt::variables::apt_sources_dir}/README":
-    ensure    => file,
-    mode      => '0444',
-    content   => 'Add your repositories here. Puppet will add its own in the puppet subfolder.',
-  }
-
-  apt::config { 'apt_allow_unauthenticated':
+  apt::config { 'allow_unauthenticated':
     config_element  => 'APT::Get::AllowUnauthenticated',
-    value           => $apt_allow_unauthenticated ? {
+    value           => $allow_unauthenticated ? {
       true    => '"True"',
       default => '"False"',
     },
   }
-  apt::config { 'apt_force_yes':
+  apt::config { 'force_yes':
     config_element  => 'APT::Get::force-yes',
-    value           => $apt_force_yes ? {
+    value           => $force_yes ? {
       true    => '"True"',
       default => '"False"',
     },
   }
-  apt::config { 'apt_install_recommends':
+  apt::config { 'install_recommends':
     config_element  => 'APT::Install-Recommends',
-    value           => $apt_install_recommends ? {
+    value           => $install_recommends ? {
       true    => '"True"',
       default => '"False"',
     },
   }
-  apt::config { 'apt_install_suggests':
+  apt::config { 'install_suggests':
     config_element  => 'APT::Install-Suggests',
-    value           => $apt_install_suggests ? {
+    value           => $install_suggests ? {
       true    => '"True"',
       default => '"False"',
     },
   }
 
-  if $apt_local_mirror {
-    $apt_url = $apt_local_mirror
+  if $local_mirror {
+    $url = $local_mirror
   }
   elsif $::ec2_instance_id != '' {
     $base_url = chop($::ec2_placement_availability_zone)
-    $apt_url = "http://${base_url}.ec2.archive.ubuntu.com/ubuntu/"
+    $url = "http://${base_url}.ec2.archive.ubuntu.com/ubuntu/"
   }
   else {
     case $::lsbdistid {
-      Debian:   {       $apt_url = $server_region ? {
+      Debian:   {       $url = $server_region ? {
           'ca'    => 'http://debian.savoirfairelinux.net/debian',
           default => 'http://ftp.fr.debian.org/debian/',
         }
       }
-      Ubuntu: { $apt_url = $server_region ? {
+      Ubuntu: { $url = $server_region ? {
           'ca'    => 'http://ubuntu.mirror.iweb.ca/',
           default => 'http://eu.archive.ubuntu.com/ubuntu/',
         }
       }
-      default: { fail('Unsupported operatiiong system') }
+      default: { fail('Unsupported operating system') }
     }
   }
 
@@ -111,7 +105,7 @@ class apt (
   #and between when apt-get update is refreshed
   file { 'sources.list':
     ensure  => file,
-    path    => "${apt::variables::apt_dir}/sources.list",
+    path    => "${apt::variables::dir}/sources.list",
     mode    => '0644',
     content => template('apt/sources.list.erb'),
     notify  => Exec ['apt-get update'],

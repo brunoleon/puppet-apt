@@ -21,14 +21,14 @@ define apt::repo(
   $repo_suffix            = false,
   $append_lsbdistcodename = true,
   $forced_lsbdistcodename = $::lsbdistcodename,
-  $section                = $apt::variables::apt_section,
+  $section                = $apt::variables::section,
   $aptGetSrc              = false,
   $keyid                  = false
   ) {
 
   include apt::variables
 
-  file { "${apt::variables::apt_sources_dir}/puppet/${name}.list":
+  file { "${apt::variables::sources_dir}/puppet/${name}.list":
     ensure  => $ensure ? {
       enabled  => file,
       disabled => absent,
@@ -45,12 +45,12 @@ define apt::repo(
     notify   => Exec['apt-get update'],
   }
 
-  file { "${apt::variables::apt_sources_dir}/${name}.list" :
+  file { "${apt::variables::sources_dir}/${name}.list" :
     ensure  => $ensure ? {
       enabled  => link,
       disabled => absent,
     },
-    target  => "${apt::variables::apt_sources_dir}/puppet/${name}.list",
+    target  => "${apt::variables::sources_dir}/puppet/${name}.list",
     notify  => Exec['apt-get update']
   }
 

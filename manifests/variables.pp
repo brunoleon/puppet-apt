@@ -1,8 +1,8 @@
 class apt::variables {
-  $apt_dir          = '/etc/apt'
-  $apt_sources_dir  = "${apt_dir}/sources.list.d"
-  $apt_conf_dir     = "${apt_dir}/apt.conf.d"
-  $apt_section = $::lsbdistid ? {
+  $dir          = '/etc/apt'
+  $sources_dir  = "${dir}/sources.list.d"
+  $conf_dir     = "${dir}/apt.conf.d"
+  $section = $::lsbdistid ? {
     Debian => 'main contrib non-free',
     Ubuntu => 'main restricted universe multiverse'
   }

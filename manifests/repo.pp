@@ -22,7 +22,7 @@ define apt::repo(
   $append_lsbdistcodename = true,
   $forced_lsbdistcodename = $::lsbdistcodename,
   $section                = $apt::variables::section,
-  $aptGetSrc              = false,
+  $getsrc                 = false,
   $keyid                  = false
   ) {
 

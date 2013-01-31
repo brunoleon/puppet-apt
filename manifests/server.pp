@@ -1,10 +1,10 @@
 ##   = Class: apt::server
-##  
-##   * Install and configure a repository for debian packages in $path 
+##
+##   * Install and configure a repository for debian packages in $path
 ##   * _INFO_: Currently only ubuntu is supported/tested
-##  
+##
 ##   == Parameters
-##  
+##
 ##   $distversions [] :: The distversion (hardy, lucid...) this repository is supporting
 ##   $reponame :: A name to identify the repository (ex: the client name)
 ##   $repopath :: The path to the local repository folder
@@ -38,10 +38,10 @@ define apt::server (
 
     $confname    = inline_template('<%= repobaseurl.split(".")[0] %>')
     $site_domain = inline_template('<%= repobaseurl.split(".")[1..-1].join(".") %>')
-    
-    case $apache2::my_apache2_hierarchical_organisation {
+
+    case $apache2::hierarchical_organisation {
       true: {
-        $hierarchical_folder_path = $apache2::my_apache2_separate_clients ? {
+        $hierarchical_folder_path = $apache2::separate_clients ? {
           true  => "${client}/${site_domain}",
           false => $site_domain,
         }

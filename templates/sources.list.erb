@@ -1,11 +1,11 @@
 ## Main repository
 deb <%= url %> <%= lsbdistcodename %> <%= scope.lookupvar("apt::variables::section") %>
-<% if getsrc == true then %>deb-src <%= url %> <%= lsbdistcodename %> <%= scope.lookupvar("apt::variables::section") %><% end -%>
+<% if scope.lookupvar('apt::getsrc') then %>deb-src <%= url %> <%= lsbdistcodename %> <%= scope.lookupvar("apt::variables::section") %><% end -%>
 
 <% if lsbdistid == 'Ubuntu' then -%>
 ## Major bug fix updates produced after the final release of the distribution
 deb <%= url %> <%= lsbdistcodename %>-updates <%= scope.lookupvar("apt::variables::section") %>
-<% if getsrc == true then %>deb-src <%= url %> <%= lsbdistcodename %>-updates <%= scope.lookupvar("apt::variables::section") %><% end -%>
+<% if scope.lookupvar('apt::getsrc') then %>deb-src <%= url %> <%= lsbdistcodename %>-updates <%= scope.lookupvar("apt::variables::section") %><% end -%>
 
 ## This software is not part of Ubuntu, but is offered by Canonical and the respective vendors as a service to Ubuntu users
 deb http://archive.canonical.com/ubuntu <%= lsbdistcodename %> partner
@@ -15,14 +15,14 @@ deb http://archive.canonical.com/ubuntu <%= lsbdistcodename %> partner
 ## Security Updates
 <% if lsbdistid == 'Ubuntu' then -%>
 deb <%= url %> <%= lsbdistcodename %>-security <%= scope.lookupvar("apt::variables::section") %>
-<% if getsrc == true then %>deb-src <%= url %> <%= lsbdistcodename %>-security <%= scope.lookupvar("apt::variables::section") %><% end -%>
+<% if scope.lookupvar('apt::getsrc') then %>deb-src <%= url %> <%= lsbdistcodename %>-security <%= scope.lookupvar("apt::variables::section") %><% end -%>
 <% end -%>
 <% if lsbdistid == 'Debian' then -%>
 deb http://security.debian.org <%= lsbdistcodename %>/updates <%= scope.lookupvar("apt::variables::section") %>
-<% if getsrc == true then %>deb-src <%= url %> http://security.debian.org/updates <%= section %><% end -%>
+<% if scope.lookupvar('apt::getsrc') then %>deb-src <%= url %> http://security.debian.org/updates <%= scope.lookupvar("apt::variables::section") %><% end -%>
 <% end -%>
 
-<% if lsbdistid == 'Ubuntu' and enable_proposed then -%>
+<% if lsbdistid == 'Ubuntu' and scope.lookupvar('enable_proposed') then -%>
 ## Proposed Updates
 deb <%= url %> <%= lsbdistcodename %>-proposed <%= scope.lookupvar("apt::variables::section") %>
 <% end -%>

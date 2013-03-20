@@ -1,6 +1,6 @@
 class apt::install {
   if $::operatingsystem == 'Ubuntu' {
-    package { apt::variables::ppa_package:
+    package { $apt::variables::ppa_package:
       ensure  => present,
     }
   }

@@ -1,11 +1,11 @@
-class apt::repository::dotdeb::lenny (
-  $stage = pre
-  ) {
-  apt::repo { 'dotdeb-lenny':
+class apt::repository::dotdeb (
+  $lsbdistcodename = $::lsbdistcodename,
+  $stage           = pre,
+) {
+  apt::repo { "dotdeb_${lsbdistcodename}":
     url                    => 'http://mirror.us.leaseweb.net/dotdeb/',
     section                => 'all',
-    forced_lsbdistcodename => 'lenny',
+    forced_lsbdistcodename => $lsbdistcodename,
     keyid                  => '89DF5277',
   }
 }
-

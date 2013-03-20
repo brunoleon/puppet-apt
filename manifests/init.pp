@@ -11,15 +11,17 @@
 # $server_region:: The region we are in. This will result in automatic selection of geographical best source for downloads
 # $local_mirror:: The url to the local mirror that might be setup. This OVERRIDES the $my_region value.
 class apt (
-  $stage                  = pre,
-  $force_yes              = false,
-  $allow_unauthenticated  = false,
-  $enable_proposed        = false,
-  $getsrc                 = false,
-  $local_mirror           = false,
-  $install_recommends     = false,
-  $install_suggests       = false,
-  $server_region          = 'ca'
+  $stage           = pre,
+  $enable_proposed = false,
+  $getsrc          = false,
+  $local_mirror    = false,
+  $server_region   = 'ca',
+  $confhash = {
+    'APT::Get::AllowUnauthenticated' => 'true',
+    'APT::Get::force-yes'            => 'true',
+    'APT::Install-Recommends'        => 'false',
+    'APT::Install-Suggests'          => 'false',
+  },
 ) {
 
   include apt::variables

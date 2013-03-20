@@ -1,14 +1,14 @@
 define apt::configsnippet (
-  $config_element,
   $value,
   $order = '99'
 ) {
   include apt::variables
 
-  file { "${apt::variables::conf_dir}/${order}${name}":
+  $filename = regsubst( "${apt::variables::conf_dir}/${order}${name}", ':', '_', 'G') 
+
+  file { $filename:
     ensure  => file,
-    content => "${config_element} ${value};",
+    content => "${name} \"${value}\";",
     notify  => Exec ['apt-get update'],
   }
 }
-

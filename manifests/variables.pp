@@ -1,4 +1,16 @@
 class apt::variables {
+  $source = {
+    'Debian' => {
+      'fr'  => 'http://ftp.fr.debian.org/debian',
+      'ca'  => 'http://debian.savoirfairelinux.net/debian',
+      'ovh' => 'http://mirror.ovh.net/debian',
+    },
+    'Ubuntu' => {
+      'fr'  => 'http://fr.archive.ubuntu.com/ubuntu',
+      'ca'  => 'http://ubuntu.mirror.iweb.ca/ubuntu',
+      'ovh' => 'http://mirror.ovh.net/ubuntu',
+    },
+  }
   case $::osfamily {
     'Debian': {
       $dir          = '/etc/apt'

@@ -28,30 +28,25 @@ define apt::repo(
 
   include apt::variables
 
-  file { "${apt::variables::sources_dir}/puppet/${name}.list":
-    ensure  => $ensure ? {
-      enabled  => file,
-      disabled => absent,
-    },
-    mode     => '0644',
-    content  => $source ? {
-      'None'  => template('apt/standardRepo.list.erb'),
-      default => undef
-    },
-    source => $content ? {
-      'None'  => "puppet:///modules/apt/${source}",
-      default => undef
-    },
-    notify   => Exec['apt-get update'],
+  $ensure_real = $ensure ? {
+    enabled  => file,
+    disabled => absent,
+  }
+  $content_real = $source ? {
+    'None'      => template('apt/standardRepo.list.erb'),
+    default     => undef
+  }
+  $source_real = $content ? {
+    'None'     => "puppet:///modules/apt/${source}",
+    default    => undef
   }
 
-  file { "${apt::variables::sources_dir}/${name}.list" :
-    ensure  => $ensure ? {
-      enabled  => link,
-      disabled => absent,
-    },
-    target  => "${apt::variables::sources_dir}/puppet/${name}.list",
-    notify  => Exec['apt-get update']
+  file { "${apt::variables::sources_dir}/${name}.list":
+    ensure  => $ensure_real,
+    mode    => '0644',
+    content => $content_real,
+    source  => $source_real,
+    notify  => Exec['apt-get update'],
   }
 
   if $keyid {
@@ -65,4 +60,3 @@ define apt::repo(
     realize Apt::Key[$name]
   }
 }
-

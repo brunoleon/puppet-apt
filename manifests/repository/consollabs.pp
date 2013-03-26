@@ -6,6 +6,6 @@ class apt::repository::consollabs (
     url                    => "http://labs.consol.de/repo/stable/${::operatingsystem}",
     section                => 'main',
     forced_lsbdistcodename => $lsbdistcodename,
-    keyid                  => 'F8C1CA08A57B9ED7',
+    keyid                  => 'A57B9ED7',
   }
 }

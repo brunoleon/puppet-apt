@@ -16,7 +16,8 @@ class apt (
   $getsrc          = false,
   $local_mirror    = false,
   $server_region   = 'ca',
-  $confhash = {
+  $section         = $apt::variables::section,
+  $confhash        = {
     'APT::Get::AllowUnauthenticated' => 'true',
     'APT::Get::force-yes'            => 'true',
     'APT::Install-Recommends'        => 'false',

@@ -3,12 +3,12 @@ class apt::variables {
     'Debian' => {
       'fr'  => 'http://ftp.fr.debian.org/debian',
       'ca'  => 'http://debian.savoirfairelinux.net/debian',
-      'ovh' => 'http://mirror.ovh.net/debian',
+      'ovh' => 'http://debian.mirrors.ovh.net/debian',
     },
     'Ubuntu' => {
       'fr'  => 'http://fr.archive.ubuntu.com/ubuntu',
       'ca'  => 'http://ubuntu.mirror.iweb.ca/ubuntu',
-      'ovh' => 'http://mirror.ovh.net/ubuntu',
+      'ovh' => 'http://debian.mirrors.ovh.net/ubuntu',
     },
   }
   case $::osfamily {

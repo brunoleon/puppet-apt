@@ -23,7 +23,7 @@ class apt (
     'APT::Install-Recommends'        => 'false',
     'APT::Install-Suggests'          => 'false',
   },
-) {
+) inherits apt::variables {
 
   include apt::variables
   Class["${module_name}::install"] ->

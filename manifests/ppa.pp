@@ -10,10 +10,15 @@ define apt::ppa(
   $reponame = regsubst($repo,'/','-')
   exec { "add-apt-repository_${repo}":
       command => "add-apt-repository ppa:${repo}",
-      unless  => "file /etc/apt/sources.list.d/${reponame}-${::lsbdistcodename}.list",
+      creates => "/etc/apt/sources.list.d/${reponame}-${::lsbdistcodename}.list",
       notify  => Exec['apt-get update'],
       require => Package['python-software-properties'],
   }
+  file { "/etc/apt/sources.list.d/${reponame}-${::lsbdistcodename}.list":
+    ensure => file,
+    require => Exec["add-apt-repository_${repo}"],
+  }
+
   if $key {
     #Sometimes apt-add-repository fails to get the key
     apt::key { $repo:

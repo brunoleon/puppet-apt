@@ -16,6 +16,7 @@ class apt (
   $getsrc          = false,
   $local_mirror    = false,
   $server_region   = 'ca',
+  $source_purge    = true,
   $section         = $apt::variables::section,
   $confhash        = {
     'APT::Get::AllowUnauthenticated' => 'true',

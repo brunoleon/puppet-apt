@@ -7,7 +7,7 @@ class apt::variables {
     },
     'Ubuntu' => {
       'fr'  => 'http://fr.archive.ubuntu.com/ubuntu',
-      'ca'  => 'http://ubuntu.mirror.iweb.ca/ubuntu',
+      'ca'  => 'http://ca.archive.ubuntu.com/ubuntu',
       'ovh' => 'http://debian.mirrors.ovh.net/ubuntu',
     },
   }

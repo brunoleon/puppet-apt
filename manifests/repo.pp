@@ -24,7 +24,7 @@ define apt::repo(
   $section                = $apt::variables::section,
   $getsrc                 = false,
   $keyid                  = false
-  ) {
+) {
 
   include apt::variables
 
@@ -36,16 +36,11 @@ define apt::repo(
     'None'      => template('apt/standardRepo.list.erb'),
     default     => undef
   }
-  $source_real = $content ? {
-    'None'     => "puppet:///modules/apt/${source}",
-    default    => undef
-  }
 
   file { "${apt::variables::sources_dir}/${name}.list":
     ensure  => $ensure_real,
     mode    => '0644',
     content => $content_real,
-    source  => $source_real,
     notify  => Exec['apt-get update'],
   }
 

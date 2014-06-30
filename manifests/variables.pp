@@ -23,8 +23,8 @@ class apt::variables {
         'Ubuntu': {
           $section = 'main restricted universe multiverse'
           $ppa_package = $::operatingsystemrelease ? {
-            /^12.04|13.10$/ => 'python-software-properties',
-            default         => 'software-properties-common',
+            /^12.04$/ => 'python-software-properties',
+            default   => 'software-properties-common',
           }
         }
       }

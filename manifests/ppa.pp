@@ -12,7 +12,7 @@ define apt::ppa(
       command => "add-apt-repository ppa:${repo}",
       creates => "/etc/apt/sources.list.d/${reponame}-${::lsbdistcodename}.list",
       notify  => Exec['apt-get update'],
-      require => Package['python-software-properties'],
+      require => Package[ $apt::variables::ppa_package ],
   }
   file { "/etc/apt/sources.list.d/${reponame}-${::lsbdistcodename}.list":
     ensure => file,

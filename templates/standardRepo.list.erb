@@ -1,3 +1,3 @@
 ## <%= name %> repository
-deb <%= url.downcase %> <% if @append_lsbdistcodename then %><%= @forced_lsbdistcodename %><% end %><% if repo_suffix then %>-<%= repo_suffix %><% end %> <%= section %>
-<% if getsrc == true then %>deb-src <%= url.downcase %> <% if append_lsbdistcodename then %><%= forced_lsbdistcodename %><% end %><% if repo_suffix then %>-<%= repo_suffix %><% end %> <%= section %><% end %>
+deb <%= url %><% if @append_lsbdistcodename then %> <%= @forced_lsbdistcodename %><% end %><% if repo_suffix then %>-<%= repo_suffix %><% end %> <%= section %>
+<% if getsrc == true then %>deb-src <%= url.downcase %><% if append_lsbdistcodename then %> <%= forced_lsbdistcodename %><% end %><% if repo_suffix then %>-<%= repo_suffix %><% end %> <%= section %><% end %>

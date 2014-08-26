@@ -6,7 +6,7 @@ class apt::repository::virtualbox (
   ) {
   apt::repo { 'virtualbox':
     url     => 'http://download.virtualbox.org/virtualbox/debian',
-    section => 'contrib non-free'
+    section => 'contrib'
   }
 	apt::key { 'virtualbox':
     keyid  => '98AB5139',

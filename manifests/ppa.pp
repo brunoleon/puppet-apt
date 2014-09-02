@@ -7,6 +7,7 @@ define apt::ppa(
   $repo,
   $key  = false
   ) {
+  include apt::variables
   $reponame = regsubst($repo,'/','-')
   exec { "add-apt-repository_${repo}":
       command => "add-apt-repository ppa:${repo}",

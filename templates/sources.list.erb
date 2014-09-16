@@ -1,11 +1,11 @@
 ## Main repository
-deb <%= @url.downcase %> <%= scope['::lsbdistcodename'] %> <%= scope['apt::section'] %>
-<% if scope['apt::getsrc'] then %>deb-src <%= @url.downcase %> <%= scope['::lsbdistcodename'] %> <%= scope['apt::section'] %><% end -%>
+deb <%= @url %> <%= scope['::lsbdistcodename'] %> <%= scope['apt::section'] %>
+<% if scope['apt::getsrc'] then %>deb-src <%= @url %> <%= scope['::lsbdistcodename'] %> <%= scope['apt::section'] %><% end -%>
 
 <% if scope['::lsbdistid'] == 'Ubuntu' then -%>
 ## Major bug fix updates produced after the final release of the distribution
-deb <%= @url.downcase %> <%= scope['::lsbdistcodename'] %>-updates <%= scope['apt::section'] %>
-<% if scope['apt::getsrc'] then %>deb-src <%= @url.downcase %> <%= scope['::lsbdistcodename'] %>-updates <%= scope['apt::section'] %><% end -%>
+deb <%= @url %> <%= scope['::lsbdistcodename'] %>-updates <%= scope['apt::section'] %>
+<% if scope['apt::getsrc'] then %>deb-src <%= @url %> <%= scope['::lsbdistcodename'] %>-updates <%= scope['apt::section'] %><% end -%>
 
 ## This software is not part of Ubuntu, but is offered by Canonical and the respective vendors as a service to Ubuntu users
 deb http://archive.canonical.com/ubuntu <%= scope['::lsbdistcodename'] %> partner
@@ -14,15 +14,15 @@ deb http://archive.canonical.com/ubuntu <%= scope['::lsbdistcodename'] %> partne
 
 ## Security Updates
 <% if scope['::lsbdistid'] == 'Ubuntu' then -%>
-deb <%= @url.downcase %> <%= scope['::lsbdistcodename'] %>-security <%= scope['apt::section'] %>
-<% if scope['apt::getsrc'] then %>deb-src <%= @url.downcase %> <%= scope['::lsbdistcodename'] %>-security <%= scope['apt::section'] %><% end -%>
+deb <%= @url %> <%= scope['::lsbdistcodename'] %>-security <%= scope['apt::section'] %>
+<% if scope['apt::getsrc'] then %>deb-src <%= @url %> <%= scope['::lsbdistcodename'] %>-security <%= scope['apt::section'] %><% end -%>
 <% end -%>
 <% if scope['::lsbdistid'] == 'Debian' then -%>
 deb http://security.debian.org <%= scope['::lsbdistcodename'] %>/updates <%= scope['apt::section'] %>
-<% if scope['apt::getsrc'] then %>deb-src <%= @url.downcase %> http://security.debian.org/updates <%= scope['apt::section'] %><% end -%>
+<% if scope['apt::getsrc'] then %>deb-src <%= @url %> http://security.debian.org/updates <%= scope['apt::section'] %><% end -%>
 <% end -%>
 
-<% if scope['::lsbdistid'] == 'Ubuntu' and scope.lookupvar('enable_proposed') then -%>
+<% if scope['::lsbdistid'] == 'Ubuntu' and scope['enable_proposed'] then -%>
 ## Proposed Updates
-deb <%= @url.downcase %> <%= scope['::lsbdistcodename'] %>-proposed <%= scope['apt::section'] %>
+deb <%= @url %> <%= scope['::lsbdistcodename'] %>-proposed <%= scope['apt::section'] %>
 <% end -%>

@@ -10,6 +10,7 @@ class apt::install {
     mode    => '0755',
     recurse => true,
     force   => true,
+    ignore  => "*.save",
     purge   => $apt::source_purge,
   }
 }

@@ -1,4 +1,4 @@
-class apt::repository::ppa::libreoffice (
+class apt::repository::ppa::libreoffice41 (
   $stage = pre
   ) {
   apt::ppa { 'ppa_libreoffice':

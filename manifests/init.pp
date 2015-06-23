@@ -18,6 +18,7 @@ class apt (
   $server_region   = 'ca',
   $source_purge    = true,
   $section         = $apt::variables::section,
+  $always_update   = false,
   $confhash        = {
     'APT::Get::AllowUnauthenticated' => 'true',
     'APT::Get::force-yes'            => 'true',

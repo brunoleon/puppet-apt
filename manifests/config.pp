@@ -1,4 +1,4 @@
-class apt::config {
+class apt::config inherits apt {
   if $apt::local_mirror {
     $url = $apt::local_mirror
   }
@@ -15,7 +15,7 @@ class apt::config {
     content => template('apt/sources.list.erb'),
   }
 
-  $keys = keys( $apt::confhash )
+  $keys = keys($apt::confhash)
   apt::configfromhash { $keys:
     confhash => $apt::confhash,
   }

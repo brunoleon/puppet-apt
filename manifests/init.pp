@@ -27,7 +27,6 @@ class apt (
   },
 ) inherits apt::variables {
 
-  include apt::variables
   Class["${module_name}::install"] ->
   Class["${module_name}::config"] ~>
   Class["${module_name}::service"]
